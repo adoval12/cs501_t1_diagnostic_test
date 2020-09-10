@@ -26,7 +26,5 @@ class TestAuthBlueprint(BaseTestCase):
 	        self.assertTrue(response.content_type == 'application/json')
 	        self.assertEqual(response.status_code, 201)
 
-
-
 if __name__ == '__main__':
     unittest.main()

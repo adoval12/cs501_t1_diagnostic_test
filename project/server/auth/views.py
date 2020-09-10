@@ -56,6 +56,12 @@ class RegisterAPI(MethodView):
             }
             return make_response(jsonify(responseObject)), 202
 
+class UserIndexAPI(MethodView):
+    def get(self):
+    	responseObject = {
+    		'Hello World': "it works"
+    	}
+    	return make_response(jsonify(responseObject)), 201
 
 # define the API resources
 registration_view = RegisterAPI.as_view('register_api')
@@ -64,5 +70,13 @@ registration_view = RegisterAPI.as_view('register_api')
 auth_blueprint.add_url_rule(
     '/auth/register',
     view_func=registration_view,
+    methods=['POST', 'GET']
+)
+
+userIndexVeiw = UserIndexAPI.as_view('user_index_api')
+
+auth_blueprint.add_url_rule(
+    '/user/index',
+    view_func=userIndexVeiw,
     methods=['POST', 'GET']
 )
