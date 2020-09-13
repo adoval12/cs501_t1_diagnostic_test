@@ -56,12 +56,14 @@ class RegisterAPI(MethodView):
             }
             return make_response(jsonify(responseObject)), 202
 
+# API to show our registered users 
 class UserIndexAPI(MethodView):
     def get(self):
-    	responseObject = {
-    		'Hello World': "it works"
-    	}
-    	return make_response(jsonify(responseObject)), 201
+        Users = db.session.query(User.email)
+        responseObject = []
+        for item in Users:
+            responseObject.append(item[0])
+        return make_response(jsonify(responseObject)), 201
 
 # define the API resources
 registration_view = RegisterAPI.as_view('register_api')
@@ -76,7 +78,7 @@ auth_blueprint.add_url_rule(
 userIndexVeiw = UserIndexAPI.as_view('user_index_api')
 
 auth_blueprint.add_url_rule(
-    '/user/index',
+    '/users/index',
     view_func=userIndexVeiw,
     methods=['POST', 'GET']
 )
